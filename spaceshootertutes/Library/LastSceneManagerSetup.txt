@@ -1,0 +1,4 @@
+sceneSetups:
+- path: C:/Users/Nick/Documents/unity stuff/Terrainhorse/Assets/_scenes/terrainhorsemoving.unity
+  isLoaded: 1
+  isActive: 1

@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2017
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spaceshootertutes", "spaceshootertutes.csproj", "{DF273F21-200A-FC37-9EFC-4D6DEB3DC053}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "spaceshootertutes.Editor", "spaceshootertutes.Editor.csproj", "{64E61AEC-ADE6-7EEF-7B6A-35EFF237529F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DF273F21-200A-FC37-9EFC-4D6DEB3DC053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF273F21-200A-FC37-9EFC-4D6DEB3DC053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF273F21-200A-FC37-9EFC-4D6DEB3DC053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF273F21-200A-FC37-9EFC-4D6DEB3DC053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64E61AEC-ADE6-7EEF-7B6A-35EFF237529F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64E61AEC-ADE6-7EEF-7B6A-35EFF237529F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64E61AEC-ADE6-7EEF-7B6A-35EFF237529F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64E61AEC-ADE6-7EEF-7B6A-35EFF237529F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
