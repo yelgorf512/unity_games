@@ -26,4 +26,9 @@ ExportedObj/
 sysinfo.txt
 
 gterrhorse/Temp/
+gterrhorse/Temp/*
+/gterrhorse/Temp/
+/gterrhorse/Temp/*
+
+
 gnoTerrainhorse/
