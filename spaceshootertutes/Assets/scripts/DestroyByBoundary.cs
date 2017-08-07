@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class DestroyByBoundary : MonoBehaviour {
-
+// is this thing on?
     //private Rigidbody rb;
 
     void OnTriggerExit(Collider other)
