@@ -10,7 +10,6 @@ public class GameController : MonoBehaviour
     {
         score = 0;
         UpdateScore();
-        scoreText = GetComponent<TextMesh>();
     }
 
     public void AddScore(int newScoreValue)
@@ -19,9 +18,15 @@ public class GameController : MonoBehaviour
         UpdateScore();
     }
 
+    public void ResetScore()
+    {
+        score = 0;
+        UpdateScore();
+    }
+
     void UpdateScore()
     {
-        Debug.Log("SCORE" + score);
+        Debug.Log("SCORE " + score);
         scoreText.text = "Score: " + score;
     }
 }

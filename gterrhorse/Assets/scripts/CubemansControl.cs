@@ -22,6 +22,8 @@ public class CubemansControl : MonoBehaviour
     private AudioSource source;
     public AudioClip the_clip;
 
+    private GameController gameController;
+
     void Start()
     {
         Debug.Log("hsfffssf");
@@ -33,6 +35,16 @@ public class CubemansControl : MonoBehaviour
         the_clip = GetComponent<AudioClip>();
         Debug.Log(the_clip);
         source.PlayOneShot(the_clip);
+
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            gameController = gameControllerObject.GetComponent<GameController>();
+        }
+        if (gameController == null)
+        {
+            Debug.Log("Cannot find 'GameController' script");
+        }
     }
 
     void Update()
@@ -112,6 +124,7 @@ public class CubemansControl : MonoBehaviour
         if (other.collider.tag != "platform")
         {
             rb.transform.position = new Vector3(0, 3, 0);
+            gameController.ResetScore();
         }
     }
     

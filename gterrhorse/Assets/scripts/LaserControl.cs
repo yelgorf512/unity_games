@@ -12,7 +12,7 @@ public class LaserControl : MonoBehaviour {
     private Collider the_collie;
 
     public int scoreValue;
-    public GameController gameController;
+    private GameController gameController;
 
     // Use this for initialization
     void Start()
@@ -21,7 +21,15 @@ public class LaserControl : MonoBehaviour {
         the_clip = GetComponent<AudioClip>();
         source.PlayOneShot(the_clip);
 
-        gameController = GetComponent<GameController>();
+        GameObject gameControllerObject = GameObject.FindWithTag("GameController");
+        if (gameControllerObject != null)
+        {
+            gameController = gameControllerObject.GetComponent<GameController>();
+        }
+        if (gameController == null)
+        {
+            Debug.Log("Cannot find 'GameController' script");
+        }
     }
 
     private void FixedUpdate()
@@ -36,10 +44,10 @@ public class LaserControl : MonoBehaviour {
         the_collie = collision.collider;
         Instantiate(Explosion_fx, transform.position, transform.rotation);
         
-        if (the_collie.tag == "Enemy")
+        if (the_collie.tag == "enemy")
         {
-            Debug.Log("HERE IN THE COLIE");
-            gameController.AddScore(30);
+            Debug.Log("HERE IN THE COLLIE");
+            gameController.AddScore(1);
             Destroy(the_collie.gameObject);
         }
         Destroy(this.gameObject);
