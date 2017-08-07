@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+//test
 public class LaserControl : MonoBehaviour {
 
     public float laser_speed;
