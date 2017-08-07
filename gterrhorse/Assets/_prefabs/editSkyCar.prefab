@@ -1005,3 +1005,4 @@ MonoBehaviour:
   The_parts: {fileID: 198313418497028760, guid: 2634ccf855ae5704e8c4f051fba45fc0,
     type: 2}
   speed: 500
+  stop_limit: 100

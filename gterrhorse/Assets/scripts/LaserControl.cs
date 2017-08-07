@@ -6,9 +6,13 @@ public class LaserControl : MonoBehaviour {
 
     public float laser_speed;
     public GameObject Explosion_fx;
+
     private AudioSource source;
     private AudioClip the_clip;
     private Collider the_collie;
+
+    public int scoreValue;
+    public GameController gameController;
 
     // Use this for initialization
     void Start()
@@ -16,6 +20,8 @@ public class LaserControl : MonoBehaviour {
         source = GetComponent<AudioSource>();
         the_clip = GetComponent<AudioClip>();
         source.PlayOneShot(the_clip);
+
+        gameController = GetComponent<GameController>();
     }
 
     private void FixedUpdate()
@@ -29,11 +35,14 @@ public class LaserControl : MonoBehaviour {
     {
         the_collie = collision.collider;
         Instantiate(Explosion_fx, transform.position, transform.rotation);
-        Destroy(this.gameObject);
+        
         if (the_collie.tag == "Enemy")
         {
+            Debug.Log("HERE IN THE COLIE");
+            gameController.AddScore(30);
             Destroy(the_collie.gameObject);
         }
+        Destroy(this.gameObject);
     }
 
 }

@@ -8,6 +8,7 @@ TagManager:
   - platform
   - player_weapon
   - enemy
+  - terrain
   layers:
   - Default
   - TransparentFX
