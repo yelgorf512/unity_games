@@ -6,7 +6,7 @@ using UnityEngine;
 public class CubemansControl : MonoBehaviour
 {
     private Rigidbody rb;
-    private Rigidbody morerigid;
+    //private Rigidbody morerigid;
 
     private bool jump;
     private bool leftButton;
@@ -26,15 +26,15 @@ public class CubemansControl : MonoBehaviour
 
     void Start()
     {
-        Debug.Log("hsfffssf");
+        
         rb = GetComponent<Rigidbody>();
-        morerigid = GetComponent<Rigidbody>();
+        //morerigid = GetComponent<Rigidbody>();
         jump = false;
         shot_timer = Time.time;
-        source = GetComponent<AudioSource>();
-        the_clip = GetComponent<AudioClip>();
-        Debug.Log(the_clip);
-        source.PlayOneShot(the_clip);
+        //source = GetComponent<AudioSource>();
+        //the_clip = GetComponent<AudioClip>();
+        
+        //source.PlayOneShot(the_clip);
 
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
@@ -73,7 +73,7 @@ public class CubemansControl : MonoBehaviour
         float moveUp = 0.0f;
         if (jump)
         {
-            Debug.Log("jumpin");
+            //Debug.Log("jumpin");
             moveUp = 75.0f; // jump height
             jump = false;
         }
@@ -81,19 +81,19 @@ public class CubemansControl : MonoBehaviour
         if (rotateHorizontal != 0)
         {
             rb.rotation = Quaternion.Euler(rb.rotation.eulerAngles.x, rb.rotation.eulerAngles.y + rotateHorizontal, rb.rotation.eulerAngles.z);
-            Debug.Log("HERE rotateHorizontal");
+            //Debug.Log("HERE rotateHorizontal");
         }
 
         if (rotateVertical != 0)
         {
             rb.rotation = Quaternion.Euler(rb.rotation.eulerAngles.x + rotateVertical, rb.rotation.eulerAngles.y, rb.rotation.eulerAngles.z);
-            Debug.Log("YHERE rotateVertical");
+            //Debug.Log("YHERE rotateVertical");
         }
 
         if (leftButton)
         {
             rb.rotation = Quaternion.Euler(rb.rotation.eulerAngles.x, rb.rotation.eulerAngles.y - 1, rb.rotation.eulerAngles.z);
-            Debug.Log("leuler");
+            //Debug.Log("leuler");
         }
 
         if (rightButton && Time.time > shot_timer)
@@ -101,7 +101,7 @@ public class CubemansControl : MonoBehaviour
             //float distance = Vector3.Distance(shotspawn.position, target.position);
             Instantiate(shot, shotspawn.position, shotspawn.rotation);
             shot_timer = Time.time + 0.1f;
-            Debug.Log("shots fired");
+            //Debug.Log("shots fired");
         }
 
         if (rb.transform.position.y < -2)               // they fell off

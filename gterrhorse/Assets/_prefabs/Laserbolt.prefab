@@ -194,8 +194,6 @@ MonoBehaviour:
   Explosion_fx: {fileID: 1809326248218146, guid: 34c6aec8f5e2c30479b0f80a8eb4bb9c,
     type: 2}
   scoreValue: 202
-  gameController: {fileID: 114712825556327034, guid: 2d1f6c5c8e39ebe488216f76e58b5a2a,
-    type: 2}
 --- !u!136 &136138525525407528
 CapsuleCollider:
   m_ObjectHideFlags: 1
