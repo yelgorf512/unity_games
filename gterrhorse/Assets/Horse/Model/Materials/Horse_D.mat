@@ -28,7 +28,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - PixelSnap: 0
-    - _Cutoff: 0.2857143
+    - _Cutoff: 0
     - _Shininess: 0.18746309
     m_Colors:
     - _Color: {r: 0.8602941, g: 0.82233995, b: 0.82233995, a: 1}

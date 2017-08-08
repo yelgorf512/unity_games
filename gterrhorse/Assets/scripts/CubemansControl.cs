@@ -15,6 +15,7 @@ public class CubemansControl : MonoBehaviour
     public float speed;
 
     public GameObject shot;
+    public Transform the_camera;
     public Transform shotspawn;
 
     float shot_timer;
@@ -114,6 +115,7 @@ public class CubemansControl : MonoBehaviour
         Vector3 finalvector = movement + new Vector3(moveHorizontal, moveUp, moveVertical);
         
         rb.AddRelativeForce(finalvector * speed);
+
 
 
 
