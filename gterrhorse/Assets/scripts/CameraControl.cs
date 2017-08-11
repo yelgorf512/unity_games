@@ -30,7 +30,7 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        
+        /*
         Transform old_transform = transform;
         
 
@@ -54,7 +54,7 @@ public class CameraControl : MonoBehaviour
             transform.position = new Vector3(transform.position.x - x_offset, old_transform.position.y, old_transform.position.z);
             x_offset = 0;
         }
-        
+        */
         transform.LookAt(transform);
 
     }

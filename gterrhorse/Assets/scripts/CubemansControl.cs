@@ -9,8 +9,15 @@ public class CubemansControl : MonoBehaviour
     //private Rigidbody morerigid;
 
     private bool jump;
+    private bool alt_jump;
     private bool leftButton;
     private bool rightButton;
+    private bool wasd_left, wasd_right, wasd_up, wasd_down;
+
+    private float moveHorizontal;
+    private float moveVertical;
+    private float rotateHorizontal;
+    private float rotateVertical;
 
     public float speed;
 
@@ -25,12 +32,22 @@ public class CubemansControl : MonoBehaviour
 
     private GameController gameController;
 
+    private int bool_to_int(bool the_bool)
+    {
+        if (the_bool)
+        {
+            return 1;
+        }
+        return 0;
+    }
+
     void Start()
     {
         
         rb = GetComponent<Rigidbody>();
         //morerigid = GetComponent<Rigidbody>();
         jump = false;
+        alt_jump = false;
         shot_timer = Time.time;
         //source = GetComponent<AudioSource>();
         //the_clip = GetComponent<AudioClip>();
@@ -50,13 +67,19 @@ public class CubemansControl : MonoBehaviour
 
     void Update()
     {
-        if (!jump)
+        if (!jump && !alt_jump)
         {
             jump = Input.GetButtonDown("Fire1");
+            alt_jump = Input.GetButtonDown("Fire2");
         }
 
         leftButton = Input.GetButton("CustomLButton");
         rightButton = Input.GetButton("CustomRButton");
+
+        wasd_up = Input.GetKey("w");
+        wasd_down = Input.GetKey("s");
+        wasd_left = Input.GetKey("a");
+        wasd_right = Input.GetKey("d");
 
         if (Input.GetKey("escape"))
         {
@@ -66,18 +89,43 @@ public class CubemansControl : MonoBehaviour
 
     void FixedUpdate()
     {
-        float moveHorizontal = Input.GetAxis("Horizontal");
-        float moveVertical = Input.GetAxis("Vertical");
-        float rotateHorizontal = Input.GetAxis("RJoystickX");
-        float rotateVertical = Input.GetAxis("RJoystickY");
+        moveHorizontal = Input.GetAxis("Horizontal");
+        moveVertical = Input.GetAxis("Vertical");
+        rotateHorizontal = Input.GetAxis("RJoystickX");
+        rotateVertical = Input.GetAxis("RJoystickY");
 
+
+        if (wasd_down)
+        {
+            moveVertical = -2;
+        }
+        else if (wasd_up)
+        {
+            moveVertical = 2;
+        }
+        
+
+        if (wasd_left)
+        {
+            moveHorizontal = -2; 
+        }
+        else if (wasd_right)
+        {
+            moveHorizontal = 2;
+        }
+
+        
+        
         float moveUp = 0.0f;
-        if (jump)
+        if (jump || alt_jump)
         {
             //Debug.Log("jumpin");
             moveUp = 75.0f; // jump height
             jump = false;
+            alt_jump = false;
         }
+
+
 
         if (rotateHorizontal != 0)
         {
@@ -115,9 +163,6 @@ public class CubemansControl : MonoBehaviour
         Vector3 finalvector = movement + new Vector3(moveHorizontal, moveUp, moveVertical);
         
         rb.AddRelativeForce(finalvector * speed);
-
-
-
 
     }
 
