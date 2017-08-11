@@ -9,9 +9,9 @@ public class CubemansControl : MonoBehaviour
     //private Rigidbody morerigid;
 
     private bool jump;
-    private bool alt_jump;
     private bool leftButton;
     private bool rightButton;
+    private bool shotButton;
     private bool wasd_left, wasd_right, wasd_up, wasd_down;
 
     private float moveHorizontal;
@@ -47,7 +47,6 @@ public class CubemansControl : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //morerigid = GetComponent<Rigidbody>();
         jump = false;
-        alt_jump = false;
         shot_timer = Time.time;
         //source = GetComponent<AudioSource>();
         //the_clip = GetComponent<AudioClip>();
@@ -67,14 +66,15 @@ public class CubemansControl : MonoBehaviour
 
     void Update()
     {
-        if (!jump && !alt_jump)
+        if (!jump)
         {
-            jump = Input.GetButtonDown("Fire1");
-            alt_jump = Input.GetButtonDown("Fire2");
+            jump = Input.GetButtonDown("Fire2");
+           
         }
 
-        leftButton = Input.GetButton("CustomLButton");
+       
         rightButton = Input.GetButton("CustomRButton");
+        shotButton = (Input.GetButton("Fire1") || Input.GetButton("CustomLButton"));
 
         wasd_up = Input.GetKey("w");
         wasd_down = Input.GetKey("s");
@@ -85,6 +85,8 @@ public class CubemansControl : MonoBehaviour
         {
             Application.Quit();
         }
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void FixedUpdate()
@@ -94,6 +96,15 @@ public class CubemansControl : MonoBehaviour
         rotateHorizontal = Input.GetAxis("RJoystickX");
         rotateVertical = Input.GetAxis("RJoystickY");
 
+        if (rotateHorizontal == 0)
+        {
+            rotateHorizontal = 2 * Input.GetAxis("Mouse X");
+        }
+
+        if (rotateVertical == 0)
+        {
+            rotateVertical = -2 * Input.GetAxis("Mouse Y");
+        }
 
         if (wasd_down)
         {
@@ -117,12 +128,11 @@ public class CubemansControl : MonoBehaviour
         
         
         float moveUp = 0.0f;
-        if (jump || alt_jump)
+        if (jump)
         {
             //Debug.Log("jumpin");
             moveUp = 75.0f; // jump height
             jump = false;
-            alt_jump = false;
         }
 
 
@@ -139,13 +149,14 @@ public class CubemansControl : MonoBehaviour
             //Debug.Log("YHERE rotateVertical");
         }
 
+        /*
         if (leftButton)
         {
             rb.rotation = Quaternion.Euler(rb.rotation.eulerAngles.x, rb.rotation.eulerAngles.y - 1, rb.rotation.eulerAngles.z);
             //Debug.Log("leuler");
-        }
+        }*/
 
-        if (rightButton && Time.time > shot_timer)
+        if ((rightButton || Input.GetButton("Fire1")) && Time.time > shot_timer)
         {
             //float distance = Vector3.Distance(shotspawn.position, target.position);
             Instantiate(shot, shotspawn.position, shotspawn.rotation);
