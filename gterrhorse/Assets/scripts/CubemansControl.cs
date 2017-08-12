@@ -9,9 +9,10 @@ public class CubemansControl : MonoBehaviour
     //private Rigidbody morerigid;
 
     private bool jump;
+    private bool shotButton;
     private bool leftButton;
     private bool rightButton;
-    private bool shotButton;
+   
     private bool wasd_left, wasd_right, wasd_up, wasd_down;
 
     private float moveHorizontal;
@@ -45,13 +46,9 @@ public class CubemansControl : MonoBehaviour
     {
         
         rb = GetComponent<Rigidbody>();
-        //morerigid = GetComponent<Rigidbody>();
+ 
         jump = false;
         shot_timer = Time.time;
-        //source = GetComponent<AudioSource>();
-        //the_clip = GetComponent<AudioClip>();
-        
-        //source.PlayOneShot(the_clip);
 
         GameObject gameControllerObject = GameObject.FindWithTag("GameController");
         if (gameControllerObject != null)
@@ -68,13 +65,12 @@ public class CubemansControl : MonoBehaviour
     {
         if (!jump)
         {
-            jump = Input.GetButtonDown("Fire2");
-           
+            jump = Input.GetButtonDown("Jump");            // INPUTS HERE !!!!!!!!!!         
         }
 
-       
+        shotButton = Input.GetButton("Fire1");
         rightButton = Input.GetButton("CustomRButton");
-        shotButton = (Input.GetButton("Fire1") || Input.GetButton("CustomLButton"));
+       
 
         wasd_up = Input.GetKey("w");
         wasd_down = Input.GetKey("s");
@@ -115,7 +111,6 @@ public class CubemansControl : MonoBehaviour
             moveVertical = 2;
         }
         
-
         if (wasd_left)
         {
             moveHorizontal = -2; 
@@ -124,8 +119,6 @@ public class CubemansControl : MonoBehaviour
         {
             moveHorizontal = 2;
         }
-
-        
         
         float moveUp = 0.0f;
         if (jump)
@@ -134,8 +127,6 @@ public class CubemansControl : MonoBehaviour
             moveUp = 75.0f; // jump height
             jump = false;
         }
-
-
 
         if (rotateHorizontal != 0)
         {
@@ -156,7 +147,7 @@ public class CubemansControl : MonoBehaviour
             //Debug.Log("leuler");
         }*/
 
-        if ((rightButton || Input.GetButton("Fire1")) && Time.time > shot_timer)
+        if (shotButton && Time.time > shot_timer)
         {
             //float distance = Vector3.Distance(shotspawn.position, target.position);
             Instantiate(shot, shotspawn.position, shotspawn.rotation);
