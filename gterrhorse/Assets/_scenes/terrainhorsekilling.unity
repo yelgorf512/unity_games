@@ -1221,7 +1221,6 @@ MonoBehaviour:
   shot: {fileID: 1530020520034678, guid: 93ad24b6f4964b941a5d90ec88111ffe, type: 2}
   the_camera: {fileID: 0}
   shotspawn: {fileID: 423531441}
-  the_clip: {fileID: 8300000, guid: 130a177e727814a2ea78a886ab72213d, type: 3}
 --- !u!54 &1157420392
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1489,7 +1488,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1568416457
 Transform:
   m_ObjectHideFlags: 0

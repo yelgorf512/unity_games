@@ -12,7 +12,9 @@ public class CubemansControl : MonoBehaviour
     private bool shotButton;
     private bool leftButton;
     private bool rightButton;
-   
+
+    private bool corrected;
+
     private bool wasd_left, wasd_right, wasd_up, wasd_down;
 
     private float moveHorizontal;
@@ -21,15 +23,15 @@ public class CubemansControl : MonoBehaviour
     private float rotateVertical;
 
     public float speed;
+    float shot_timer;
 
     public GameObject shot;
     public Transform the_camera;
     public Transform shotspawn;
 
-    float shot_timer;
-
-    private AudioSource source;
-    public AudioClip the_clip;
+    private Quaternion lastRotation;
+    private Quaternion startRotation;
+    
 
     private GameController gameController;
 
@@ -42,9 +44,17 @@ public class CubemansControl : MonoBehaviour
         return 0;
     }
 
+    private void HorseReset()
+    {
+        rb.velocity = new Vector3(0f, 0f, 0f);
+        rb.angularVelocity = new Vector3(0f, 0f, 0f);
+        rb.transform.position = new Vector3(0, 3, 0);
+        rb.transform.rotation = new Quaternion(0, 0, 0, 0);
+    }
+
     void Start()
     {
-        
+        corrected = false;
         rb = GetComponent<Rigidbody>();
  
         jump = false;
@@ -59,6 +69,9 @@ public class CubemansControl : MonoBehaviour
         {
             Debug.Log("Cannot find 'GameController' script");
         }
+
+        lastRotation = Quaternion.Euler(rb.transform.rotation.eulerAngles.x, rb.transform.rotation.eulerAngles.y, rb.transform.rotation.eulerAngles.z);
+        startRotation = lastRotation;
     }
 
     void Update()
@@ -70,7 +83,8 @@ public class CubemansControl : MonoBehaviour
 
         shotButton = Input.GetButton("Fire1");
         rightButton = Input.GetButton("CustomRButton");
-       
+
+        
 
         wasd_up = Input.GetKey("w");
         wasd_down = Input.GetKey("s");
@@ -137,43 +151,51 @@ public class CubemansControl : MonoBehaviour
         if (rotateVertical != 0)
         {
             rb.rotation = Quaternion.Euler(rb.rotation.eulerAngles.x + rotateVertical, rb.rotation.eulerAngles.y, rb.rotation.eulerAngles.z);
-            //Debug.Log("YHERE rotateVertical");
         }
 
-        /*
-        if (leftButton)
+        Debug.Log("ROTATION X " + rb.transform.eulerAngles.x);
+        if (!(rb.transform.eulerAngles.x < 60 || rb.transform.eulerAngles.x > 300))
         {
-            rb.rotation = Quaternion.Euler(rb.rotation.eulerAngles.x, rb.rotation.eulerAngles.y - 1, rb.rotation.eulerAngles.z);
-            //Debug.Log("leuler");
-        }*/
+            Debug.Log("OUT OF ROTATE BOUNDS" + rb.transform.eulerAngles.x);
+            rb.rotation = lastRotation;
+            corrected = true;
+        }
+        else
+        {
+            corrected = false;
+        }
 
         if (shotButton && Time.time > shot_timer)
         {
-            //float distance = Vector3.Distance(shotspawn.position, target.position);
             Instantiate(shot, shotspawn.position, shotspawn.rotation);
             shot_timer = Time.time + 0.1f;
-            //Debug.Log("shots fired");
-        }
+        }   // make laser
 
         if (rb.transform.position.y < -2)               // they fell off
         {
-            rb.transform.position = new Vector3(0, 0.5f, 0);
-            rb.velocity = new Vector3(0, 0, 0);
+            //rb.transform.position = new Vector3(0, 0.5f, 0);
+            //rb.velocity = new Vector3(0, 0, 0);
+            HorseReset();
         }
 
         Vector3 movement = transform.forward * Time.deltaTime;
         Vector3 finalvector = movement + new Vector3(moveHorizontal, moveUp, moveVertical);
-        
-        rb.AddRelativeForce(finalvector * speed);
 
+        if (!corrected)     // if we correc the rotation dont add force
+        {
+            rb.AddRelativeForce(finalvector * speed);
+        }
+
+        lastRotation = Quaternion.Euler(rb.transform.rotation.eulerAngles.x, rb.transform.rotation.eulerAngles.y, rb.transform.rotation.eulerAngles.z);
     }
 
     public void OnCollisionEnter(Collision other)
     {
         if (other.collider.tag != "platform")
         {
-            rb.transform.position = new Vector3(0, 3, 0);
-            gameController.ResetScore();
+            HorseReset();
+            //rb.transform.position = new Vector3(0, 3, 0);
+            //gameController.ResetScore();
         }
     }
     
