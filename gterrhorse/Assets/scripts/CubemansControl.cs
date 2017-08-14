@@ -109,12 +109,12 @@ public class CubemansControl : MonoBehaviour
         if (rotateHorizontal == 0)
         {
             rotateHorizontal = 2 * Input.GetAxis("Mouse X");
-        }
+        }   // get mouse x
 
         if (rotateVertical == 0)
         {
             rotateVertical = -2 * Input.GetAxis("Mouse Y");
-        }
+        }     // get mouse y
 
         if (wasd_down)
         {
@@ -154,7 +154,7 @@ public class CubemansControl : MonoBehaviour
         }
 
         Debug.Log("ROTATION X " + rb.transform.eulerAngles.x);
-        if (!(rb.transform.eulerAngles.x < 60 || rb.transform.eulerAngles.x > 300))
+        if (!(rb.transform.eulerAngles.x < 80 || rb.transform.eulerAngles.x > 300))
         {
             Debug.Log("OUT OF ROTATE BOUNDS" + rb.transform.eulerAngles.x);
             rb.rotation = lastRotation;
