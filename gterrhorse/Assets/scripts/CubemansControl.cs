@@ -153,10 +153,10 @@ public class CubemansControl : MonoBehaviour
             rb.rotation = Quaternion.Euler(rb.rotation.eulerAngles.x + rotateVertical, rb.rotation.eulerAngles.y, rb.rotation.eulerAngles.z);
         }
 
-        Debug.Log("ROTATION X " + rb.transform.eulerAngles.x);
+        //Debug.Log("ROTATION X " + rb.transform.eulerAngles.x);
         if (!(rb.transform.eulerAngles.x < 80 || rb.transform.eulerAngles.x > 300))
         {
-            Debug.Log("OUT OF ROTATE BOUNDS" + rb.transform.eulerAngles.x);
+            //Debug.Log("OUT OF ROTATE BOUNDS" + rb.transform.eulerAngles.x);
             rb.rotation = lastRotation;
             corrected = true;
         }
