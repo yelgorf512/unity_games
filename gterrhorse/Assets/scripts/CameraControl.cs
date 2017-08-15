@@ -30,20 +30,38 @@ public class CameraControl : MonoBehaviour
     {
         cameraMoveHorizontal = Input.GetAxis("Horizontal");
         //Debug.Log(cameraMoveHorizontal);
-        if (cameraMoveHorizontal > .3f)
+
+        pan_right = false;
+        pan_left = false;
+
+        if (cameraMoveHorizontal > .8f)
         {
             pan_right = true;
             pan_left = false;
             Debug.Log("pan_right");
         }
-        if (cameraMoveHorizontal < - .3f)
+        else if (cameraMoveHorizontal < -.8f)
         {
             pan_left = true;
             pan_right = false;
             Debug.Log("pan_left");
         }
+        else
+        {
+            Debug.Log("HERE");
+            if (pan_left && transform.localPosition.x < 0)
+            {
+                pan_left = false;
+                pan_right = true;
+            }
+            else if (pan_right && transform.localPosition.x > 0)
+            {
+                pan_left = true;
+                pan_right = false;
+            }
+        }
     }
-    
+
 
     // Update is called once per frame
     void LateUpdate()
@@ -59,20 +77,20 @@ public class CameraControl : MonoBehaviour
         //if (pan_left && (transform.position.x - pan_rate > -3))
         if (pan_left)
         {
-            transform.position = new Vector3(transform.position.x - pan_rate , transform.position.y, transform.position.z);
+            transform.localPosition = new Vector3(Mathf.Clamp(transform.localPosition.x - pan_rate, -3, 3) , transform.localPosition.y, transform.localPosition.z);
         }
         //else if (pan_right && (transform.position.x + pan_rate < 3))
         else if (pan_right)
         {
-            transform.position = new Vector3(transform.position.x + pan_rate, transform.position.y, transform.position.z);
+            transform.localPosition = new Vector3(Mathf.Clamp(transform.localPosition.x + pan_rate, -3, 3), transform.localPosition.y, transform.localPosition.z);
         }
         else if (pan_up)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y + pan_rate, transform.position.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y + pan_rate, transform.localPosition.z);
         }
         else if (pan_down)
         {
-            transform.position = new Vector3(transform.position.x, transform.position.y - pan_rate, transform.position.z);
+            transform.localPosition = new Vector3(transform.localPosition.x, transform.localPosition.y - pan_rate, transform.localPosition.z);
         }
         //cameraMoveHorizontal = Input.GetAxis("Horizontal");
 
