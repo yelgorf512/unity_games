@@ -15,7 +15,7 @@ public class CameraControl : MonoBehaviour
     private bool spec_cameraMoveHorizontal;
 
     private bool pan_left, pan_right, pan_up, pan_down;
-
+    private bool correcting;
 
 
     Transform old_transform;
@@ -24,6 +24,8 @@ public class CameraControl : MonoBehaviour
     void Start()
     {
         x_offset = 0;
+        pan_rate = 0.05f;
+        correcting = false;
     }
 
     private void Update()
@@ -31,33 +33,46 @@ public class CameraControl : MonoBehaviour
         cameraMoveHorizontal = Input.GetAxis("Horizontal");
         //Debug.Log(cameraMoveHorizontal);
 
-        pan_right = false;
-        pan_left = false;
-
-        if (cameraMoveHorizontal > .8f)
+        if (Mathf.Abs(cameraMoveHorizontal) > .8f)
         {
-            pan_right = true;
-            pan_left = false;
-            Debug.Log("pan_right");
-        }
-        else if (cameraMoveHorizontal < -.8f)
-        {
-            pan_left = true;
-            pan_right = false;
-            Debug.Log("pan_left");
+            if (cameraMoveHorizontal > .8f)
+            {
+                pan_right = true;
+                pan_left = false;
+                Debug.Log("contoller pan_right");
+            }
+            else if (cameraMoveHorizontal < -.8f)
+            {
+                pan_left = true;
+                pan_right = false;
+                Debug.Log("controller pan_left");
+            }
         }
         else
         {
             Debug.Log("HERE");
-            if (pan_left && transform.localPosition.x < 0)
+            if (pan_left && transform.localPosition.x < 0 && !correcting)
             {
+                Debug.Log("correcting by pan right");
                 pan_left = false;
                 pan_right = true;
+                correcting = true;
             }
-            else if (pan_right && transform.localPosition.x > 0)
+            else if (pan_right && transform.localPosition.x > 0 && !correcting)
             {
+                Debug.Log("correcting by pan left");
                 pan_left = true;
                 pan_right = false;
+                correcting = true;
+            }
+            else if (!correcting)
+            {
+                pan_right = false;
+                pan_left = false;
+            }
+            else
+            {
+                correcting = false;
             }
         }
     }
@@ -72,7 +87,7 @@ public class CameraControl : MonoBehaviour
         //cam_position_x restricted between -6 and 6
         transform.LookAt(transform);
 
-        pan_rate = 0.05f;
+        
 
         //if (pan_left && (transform.position.x - pan_rate > -3))
         if (pan_left)
