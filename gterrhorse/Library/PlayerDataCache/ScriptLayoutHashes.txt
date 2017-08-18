@@ -254,6 +254,7 @@ a8796ecdc9d5c260bbe32f30c4b10708 Assembly-CSharp-firstpass.dll:UnityStandardAsse
 b7f557c19cce3b6f593e26edfe1ec859 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Vehicles.Ball.Ball
 0ad469aca31264c6140b1e503c43ab6b Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.TimedObjectDestructor
 584795015275d7765225ad872c0e8bd8 Assembly-CSharp.dll:.OVRGrabber
+05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp.dll:.OVRCameraControl
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.GerstnerDisplace
 f4b175ffc1eeca85d2783436b4c764a7 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Effects.Explosive
 6746ad828d32ad6e5c07a63950fd4be6 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Water.WaterTile
