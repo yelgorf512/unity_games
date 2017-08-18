@@ -175,7 +175,8 @@ public class CubemansControl : MonoBehaviour
         {
             //rb.transform.position = new Vector3(0, 0.5f, 0);
             //rb.velocity = new Vector3(0, 0, 0);
-            HorseReset();
+            HorseDeath();
+  
         }
 
         Vector3 movement = transform.forward * Time.deltaTime;
@@ -193,10 +194,16 @@ public class CubemansControl : MonoBehaviour
     {
         if (other.collider.tag != "platform")
         {
-            HorseReset();
+            HorseDeath();
             //rb.transform.position = new Vector3(0, 3, 0);
             //gameController.ResetScore();
         }
+    }
+
+    private void HorseDeath()
+    {
+        gameController.ResetScore();
+        HorseReset();
     }
     
 }

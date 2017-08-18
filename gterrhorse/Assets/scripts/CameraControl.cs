@@ -89,7 +89,7 @@ public class CameraControl : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        if (Mathf.Abs(cameraMoveHorizontal) > .8f)
+        if (Mathf.Abs(cameraMoveHorizontal) > .6f)
         {
             pan_x_offset_change = -cameraMoveHorizontal;
         }
