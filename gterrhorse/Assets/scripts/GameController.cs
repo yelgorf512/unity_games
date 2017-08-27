@@ -16,6 +16,7 @@ public class GameController : MonoBehaviour
         score = 0;
         highscore = 0;
         UpdateScore();
+        AudioListener.volume = 0.0F;
     }
 
     private void Update()
