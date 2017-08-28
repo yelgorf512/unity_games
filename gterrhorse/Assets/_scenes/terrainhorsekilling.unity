@@ -2430,9 +2430,9 @@ MonoBehaviour:
     steering: 1
   - leftWheel: {fileID: 28579386}
     rightWheel: {fileID: 648233159}
-    motor: 0
-    steering: 0
-  maxMotorTorque: 1000
+    motor: 1
+    steering: 1
+  maxMotorTorque: 3000
   maxSteeringAngle: 60
 --- !u!65 &1401646323
 BoxCollider:
@@ -2471,7 +2471,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1401646320}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 347.9, y: 18.1, z: 138.1}
+  m_LocalPosition: {x: 347.9, y: 18.1, z: 194.2}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children:
   - {fileID: 1347724724}
