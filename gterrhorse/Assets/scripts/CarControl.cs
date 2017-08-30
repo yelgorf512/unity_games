@@ -25,6 +25,7 @@ public class CarControl : MonoBehaviour {
 
     private float destroy_time;
     private int stopped_count;
+    private float flip_correction = 0f;
 
 
     public List<AxleInfo> axleInfos;
@@ -82,23 +83,32 @@ public class CarControl : MonoBehaviour {
             ApplyLocalPositionToVisuals(axleInfo.leftWheel);
             ApplyLocalPositionToVisuals(axleInfo.rightWheel);
         }
-    }
 
-    private void Update()
-    {   
-        /*
-        rb.AddForce(transform.forward * speed * Time.deltaTime);
-        if (rb.velocity.x < .1f && rb.velocity.z < .1f)
+        if (rb.velocity.x < .05f && rb.velocity.z < .05f)
         {
             stopped_count++;
             if (stopped_count > stop_limit)
             {
                 stopped_count = 0;
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180.0f, transform.eulerAngles.z); stopped_count = 0;
+
+                if (Mathf.Abs(transform.eulerAngles.z) > 160f)
+                {
+                    flip_correction = -(transform.eulerAngles.z);
+                }
+
+                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180.0f, transform.eulerAngles.z + flip_correction); stopped_count = 0;
                 rb.AddForce(transform.forward * speed * Time.deltaTime);
             }
         }
-        */
+
+        rb.AddForce(transform.forward * speed * Time.deltaTime);
+    }
+
+    private void Update()
+    {   
+        
+
+
 
         /*if (destroy_time != 0 && Time.time > destroy_time)
         {
