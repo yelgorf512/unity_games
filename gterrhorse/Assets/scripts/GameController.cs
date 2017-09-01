@@ -6,6 +6,8 @@ public class GameController : MonoBehaviour
     public TextMesh scoreText;
     private int score;
     private int highscore;
+    private int cars_count;
+    GameObject[] cars_array;
     float start_time;
     float time_elapsed;
     public int max_time = 0;
@@ -22,7 +24,9 @@ public class GameController : MonoBehaviour
     private void Update()
     {
         time_elapsed = Time.time - start_time;
-        UpdateScore();   
+        UpdateScore();
+        cars_array = GameObject.FindGameObjectsWithTag("enemy");
+        cars_count = cars_array.Length;
     }
     public void AddScore(int newScoreValue)
     {
@@ -45,6 +49,7 @@ public class GameController : MonoBehaviour
     {
         scoreText.text = "High: " + highscore
             + "\nScore: " + score
-            + "\nTimer: " + time_elapsed;
+            + "\nTimer: " + time_elapsed
+            + "\ncars_count:" + cars_count;
     }
 }

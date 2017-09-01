@@ -102,6 +102,13 @@ public class CarControl : MonoBehaviour {
         }
 
         rb.AddForce(transform.forward * speed * Time.deltaTime);
+
+        // BAD HACK
+        if (transform.position.y < -15)
+        {
+            //transform.position = new Vector3(transform.position.x, 10, transform.position.z);
+            Destroy(gameObject);
+        }
     }
 
     private void Update()
@@ -117,8 +124,9 @@ public class CarControl : MonoBehaviour {
     }
 
     public void OnCollisionEnter(Collision collision)
-    {   
+    {
         if (collision.collider.tag == "player_weapon")
+        //if (collision.collider.tag == "player_weapon" || transform.position.y < -3000) ;
         {
             Instantiate(The_parts, transform.position, transform.rotation);
             source.PlayOneShot(the_clip);
