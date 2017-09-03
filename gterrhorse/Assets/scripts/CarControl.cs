@@ -107,7 +107,7 @@ public class CarControl : MonoBehaviour {
         if (transform.position.y < -15)
         {
             //transform.position = new Vector3(transform.position.x, 10, transform.position.z);
-            Destroy(gameObject);
+            //Destroy(gameObject);
         }
     }
 
