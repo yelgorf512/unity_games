@@ -25,6 +25,8 @@ public class CarControl : MonoBehaviour {
 
     private float destroy_time;
     private int stopped_count;
+    private bool correcting;
+    private float correcting_time;
     private float flip_correction = 0f;
 
 
@@ -37,10 +39,14 @@ public class CarControl : MonoBehaviour {
     {
         source = GetComponent<AudioSource>();
         the_clip = GetComponent<AudioClip>();
+
         rb = GetComponent<Rigidbody>();
-        rb.AddForce(transform.forward);
+
         destroy_time = 0;
         stopped_count = 0;
+
+        correcting = false;
+        correcting_time = 0;
     }
 
     // finds the corresponding visual wheel
@@ -68,46 +74,66 @@ public class CarControl : MonoBehaviour {
         float motor = maxMotorTorque;
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
-        foreach (AxleInfo axleInfo in axleInfos)
+        if (!correcting)
         {
-            if (axleInfo.steering)
+            foreach (AxleInfo axleInfo in axleInfos)
             {
-                axleInfo.leftWheel.steerAngle = steering;
-                axleInfo.rightWheel.steerAngle = steering;
+                if (axleInfo.steering)
+                {
+                    axleInfo.leftWheel.steerAngle = steering;
+                    axleInfo.rightWheel.steerAngle = steering;
+                }
+                if (axleInfo.motor)
+                {
+                    axleInfo.leftWheel.motorTorque = motor;
+                    axleInfo.rightWheel.motorTorque = motor;
+                }
+                ApplyLocalPositionToVisuals(axleInfo.leftWheel);
+                ApplyLocalPositionToVisuals(axleInfo.rightWheel);
             }
-            if (axleInfo.motor)
-            {
-                axleInfo.leftWheel.motorTorque = motor;
-                axleInfo.rightWheel.motorTorque = motor;
-            }
-            ApplyLocalPositionToVisuals(axleInfo.leftWheel);
-            ApplyLocalPositionToVisuals(axleInfo.rightWheel);
-        }
 
-        if (rb.velocity.x < .05f && rb.velocity.z < .05f)
-        {
-            stopped_count++;
-            if (stopped_count > stop_limit)
+            if (rb.velocity.x < .1f && rb.velocity.z < .1f)
+            {
+                stopped_count++;
+                if (stopped_count > stop_limit)
+                {
+                    stopped_count = 0;
+
+                    /*
+                    if (Mathf.Abs(transform.eulerAngles.z) > 160f)
+                    {
+                        flip_correction = -(transform.eulerAngles.z);
+                    }
+                    */
+                    
+                    //transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180.0f, transform.eulerAngles.z + flip_correction); stopped_count = 0;
+
+                    //rb.AddForce(transform.forward * -500 * Time.deltaTime);
+                    //rb.AddRelativeForce(transform.up * 50000);
+                    Debug.Log("correcting");
+
+                    correcting_time = Time.time + 5f;
+                    correcting = true;
+                }
+            }
+            else
             {
                 stopped_count = 0;
-
-                if (Mathf.Abs(transform.eulerAngles.z) > 160f)
-                {
-                    flip_correction = -(transform.eulerAngles.z);
-                }
-
-                transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180.0f, transform.eulerAngles.z + flip_correction); stopped_count = 0;
                 rb.AddForce(transform.forward * speed * Time.deltaTime);
+            }
+            // BAD HACK
+            if (transform.position.y < -15)
+            {
+                //transform.position = new Vector3(transform.position.x, 10, transform.position.z);
+                //Destroy(gameObject);
             }
         }
 
-        rb.AddForce(transform.forward * speed * Time.deltaTime);
-
-        // BAD HACK
-        if (transform.position.y < -15)
+        else    // correcting
         {
-            //transform.position = new Vector3(transform.position.x, 10, transform.position.z);
-            //Destroy(gameObject);
+            Debug.Log("in the correction");
+            rb.AddForce(transform.forward * -1);
+            //rb.AddTorque(new Vector3(100, 0, 0));
         }
     }
 
