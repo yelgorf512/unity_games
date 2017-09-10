@@ -58,10 +58,12 @@ public class CameraControl : MonoBehaviour
 
         transform.localPosition = new Vector3(origin_position.x + pan_x_offset, transform.localPosition.y, transform.localPosition.z);
 
+        /*
         Debug.Log("pan_x_offset " + pan_x_offset);
         Debug.Log("pan_x_offset_change " + pan_x_offset_change);
         Debug.Log("origin_position.x " + origin_position.x);
         Debug.Log("pan_x_offset_change " + pan_x_offset_change);
         Debug.Log("cameraMoveHorizontal" + cameraMoveHorizontal);
+        */
     }
 }

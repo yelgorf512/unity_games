@@ -17,19 +17,25 @@ public class CarControl : MonoBehaviour {
     private Rigidbody rb;
 
     public ParticleSystem The_parts;
-    public float speed;
-    public int stop_limit;
-
+    private float speed;
+   
     private AudioSource source;
     private AudioClip the_clip;
 
     private float destroy_time;
+
     private int stopped_count;
+    private int stopped_limit;
+    private float stopped_time;
+    private float stopped_time_cutoff;
+    private float velocity_cutoff;
+
     private bool correcting;
+    private bool starting_up;
     private float correcting_time;
+
     private float flip_correction = 0f;
-
-
+    
     public List<AxleInfo> axleInfos;
     public float maxMotorTorque;
     public float maxSteeringAngle;
@@ -43,14 +49,20 @@ public class CarControl : MonoBehaviour {
         rb = GetComponent<Rigidbody>();
 
         destroy_time = 0;
-        stopped_count = 0;
+        stopped_time = 0;
+        stopped_time_cutoff = Time.time + 5;
 
+        speed = 500;
+
+        stopped_count = 0;
+        stopped_limit = 5;
+        velocity_cutoff = .3f;
+
+        starting_up = true;
         correcting = false;
         correcting_time = 0;
     }
-
-    // finds the corresponding visual wheel
-    // correctly applies the transform
+    
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
     {
         if (collider.transform.childCount == 0)
@@ -71,8 +83,15 @@ public class CarControl : MonoBehaviour {
 
     public void FixedUpdate()
     {
-        float motor = maxMotorTorque;
+        //float motor = maxMotorTorque;
+        float motor = 0;
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
+
+        Debug.Log("correcting: " + correcting);
+        Debug.Log("starting_up: " + starting_up);
+        //Debug.Log("stopped_count" + stopped_count);
+        //Debug.Log("rb velocity z" + rb.velocity.z + " rb pt velocity z" + rb.GetPointVelocity(new Vector3(0, 0, 0)).z);
+        //Debug.Log("rb pt velocity z" + rb.GetPointVelocity(new Vector3(0, 0, 0)).z);
 
         if (!correcting)
         {
@@ -92,10 +111,11 @@ public class CarControl : MonoBehaviour {
                 ApplyLocalPositionToVisuals(axleInfo.rightWheel);
             }
 
-            if (rb.velocity.x < .1f && rb.velocity.z < .1f)
+            if (Mathf.Abs(rb.velocity.z) < velocity_cutoff && starting_up == false)
             {
                 stopped_count++;
-                if (stopped_count > stop_limit)
+
+                if (stopped_count > stopped_limit)
                 {
                     stopped_count = 0;
 
@@ -114,35 +134,42 @@ public class CarControl : MonoBehaviour {
 
                     correcting_time = Time.time + 5f;
                     correcting = true;
+                    rb.AddForce(rb.transform.forward * -50, ForceMode.VelocityChange);
+                    //rb.AddForce(transform.up * 10, ForceMode.VelocityChange);
                 }
             }
             else
             {
+                if (starting_up == true && Mathf.Abs(rb.velocity.z) > 10)
+                {
+                    starting_up = false;
+                }
                 stopped_count = 0;
-                rb.AddForce(transform.forward * speed * Time.deltaTime);
+                stopped_time_cutoff = Time.time + 2f;
+                rb.AddForce(transform.forward * 10000);
             }
-            // BAD HACK
+
+            /* BAD HACK
             if (transform.position.y < -15)
             {
                 //transform.position = new Vector3(transform.position.x, 10, transform.position.z);
                 //Destroy(gameObject);
             }
+            */
         }
 
         else    // correcting
         {
             Debug.Log("in the correction");
-            rb.AddForce(transform.forward * -1);
-            //rb.AddTorque(new Vector3(100, 0, 0));
+            
+                
+        //rb.AddForce(transform.forward * -1);
+            //rb.AddRelativeForce(new Vector3(0, 0, -1000) * Time.deltaTime);
         }
     }
 
     private void Update()
     {   
-        
-
-
-
         /*if (destroy_time != 0 && Time.time > destroy_time)
         {
             Destroy(gameObject);
@@ -159,8 +186,5 @@ public class CarControl : MonoBehaviour {
             Destroy(gameObject);
         }
         //destroy_time = Time.time + .1f;
-       
-
-
     }
 }
