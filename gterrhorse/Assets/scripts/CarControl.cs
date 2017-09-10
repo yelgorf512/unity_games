@@ -134,7 +134,7 @@ public class CarControl : MonoBehaviour {
 
                     correcting_time = Time.time + 5f;
                     correcting = true;
-                    rb.AddForce(rb.transform.forward * -50, ForceMode.VelocityChange);
+                    rb.AddForce(rb.transform.forward * -50000, ForceMode.Impulse);
                     //rb.AddForce(transform.up * 10, ForceMode.VelocityChange);
                 }
             }
