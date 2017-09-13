@@ -34,8 +34,9 @@ public class CarControl : MonoBehaviour {
     private bool starting_up;
     private float correcting_time;
 
-    private float flip_correction = 0f;
-    
+    private float flip_correction_x = 0f;
+    private float flip_correction_z = 0f;
+
     public List<AxleInfo> axleInfos;
     public float maxMotorTorque;
     public float maxSteeringAngle;
@@ -142,6 +143,20 @@ public class CarControl : MonoBehaviour {
                     rb.AddRelativeForce(transform.forward * -15000, ForceMode.Impulse);
                     rb.AddForce(transform.up * 20000, ForceMode.Impulse);
                     rb.AddTorque(transform.up * 5000, ForceMode.Impulse);
+                    
+                    if (Mathf.Abs(transform.eulerAngles.x) > 160f)
+                    {
+                        flip_correction_x = -(transform.eulerAngles.x);
+                    }
+
+                    if (Mathf.Abs(transform.eulerAngles.z) > 160f)
+                    {
+                        flip_correction_x = -(transform.eulerAngles.z);
+                    }
+
+
+                    transform.eulerAngles = new Vector3(transform.eulerAngles.x + flip_correction_x, transform.eulerAngles.y + 180.0f, transform.eulerAngles.z + flip_correction_z); stopped_count = 0;
+
                 }
             }
             else
