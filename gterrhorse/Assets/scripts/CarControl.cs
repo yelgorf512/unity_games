@@ -87,8 +87,9 @@ public class CarControl : MonoBehaviour {
         float motor = 0;
         float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
 
-        Debug.Log("correcting: " + correcting);
-        Debug.Log("starting_up: " + starting_up);
+        //Debug.Log("correcting: " + correcting);
+        //Debug.Log("starting_up: " + starting_up);
+        
         //Debug.Log("stopped_count" + stopped_count);
         //Debug.Log("rb velocity z" + rb.velocity.z + " rb pt velocity z" + rb.GetPointVelocity(new Vector3(0, 0, 0)).z);
         //Debug.Log("rb pt velocity z" + rb.GetPointVelocity(new Vector3(0, 0, 0)).z);
@@ -130,12 +131,17 @@ public class CarControl : MonoBehaviour {
 
                     //rb.AddForce(transform.forward * -500 * Time.deltaTime);
                     //rb.AddRelativeForce(transform.up * 50000);
-                    Debug.Log("correcting");
+                    
+
 
                     correcting_time = Time.time + 5f;
                     correcting = true;
-                    rb.AddForce(rb.transform.forward * -50000, ForceMode.Impulse);
-                    //rb.AddForce(transform.up * 10, ForceMode.VelocityChange);
+
+                    //Debug.Break();
+
+                    rb.AddRelativeForce(transform.forward * -15000, ForceMode.Impulse);
+                    rb.AddForce(transform.up * 20000, ForceMode.Impulse);
+                    rb.AddTorque(transform.up * 5000, ForceMode.Impulse);
                 }
             }
             else
@@ -149,19 +155,22 @@ public class CarControl : MonoBehaviour {
                 rb.AddForce(transform.forward * 10000);
             }
 
-            /* BAD HACK
+            /* BAD HACK */
             if (transform.position.y < -15)
             {
                 //transform.position = new Vector3(transform.position.x, 10, transform.position.z);
-                //Destroy(gameObject);
+                Destroy(gameObject);
             }
-            */
+            //*/
         }
 
         else    // correcting
         {
-            Debug.Log("in the correction");
-            
+            if (Time.time > stopped_time_cutoff)
+            {
+                correcting = false;
+                starting_up = true;
+            }
                 
         //rb.AddForce(transform.forward * -1);
             //rb.AddRelativeForce(new Vector3(0, 0, -1000) * Time.deltaTime);
