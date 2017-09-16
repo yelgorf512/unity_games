@@ -104,7 +104,7 @@ f61c0793411f10cf5fbfa1473fef5ef2 UnityEngine.UI.dll:UnityEngine.UI.ToggleGroup
 05524b8f659e7bfe5756d1335fec24ba Assembly-CSharp-firstpass.dll:UnityStandardAssets.Vehicles.Ball.BallUserControl
 f41c5222aaa4557bb9cafa1c24b37a94 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Cameras.AutoCam
 ee3204a1e0e2cf67e04e01c8c820d5b4 Assembly-CSharp.dll:.OVRPlayerController
-a8cc5f0df1c1d53ff326607662d11702 Assembly-CSharp.dll:.CarControl
+ca1c442cb7bb88da8011f27afc288359 Assembly-CSharp.dll:.CarControl
 6c156248975c65e334daa4cbfba64bd1 Assembly-CSharp-firstpass.dll:UnityStandardAssets.Utility.TimedObjectActivator
 05524b8f659e7bfe5756d1335fec24ba UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationPlayableAsset
 cac917711d0e84d412d48737b6fc9ae7 UnityEngine.Timeline.dll:UnityEngine.Timeline.ActivationTrack

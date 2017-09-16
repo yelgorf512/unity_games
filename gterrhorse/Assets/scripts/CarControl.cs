@@ -14,6 +14,8 @@ public class AxleInfo
 
 public class CarControl : MonoBehaviour {
 
+    private const bool DEBUG = false;
+
     private Rigidbody rb;
 
     public ParticleSystem The_parts;
@@ -32,10 +34,11 @@ public class CarControl : MonoBehaviour {
 
     private bool correcting;
     private bool starting_up;
+    private float starting_up_time;
     private float correcting_time;
 
-    private float flip_correction_x = 0f;
-    private float flip_correction_z = 0f;
+    private float flip_correction_x;
+    private float flip_correction_z;
 
     public List<AxleInfo> axleInfos;
     public float maxMotorTorque;
@@ -53,6 +56,8 @@ public class CarControl : MonoBehaviour {
         stopped_time = 0;
         stopped_time_cutoff = Time.time + 5;
 
+        starting_up_time = Time.time + 5;
+
         speed = 500;
 
         stopped_count = 0;
@@ -62,7 +67,10 @@ public class CarControl : MonoBehaviour {
         starting_up = true;
         correcting = false;
         correcting_time = 0;
-    }
+
+        flip_correction_x = 0f;
+        flip_correction_z = 0f;
+}
     
     public void ApplyLocalPositionToVisuals(WheelCollider collider)
     {
@@ -85,18 +93,22 @@ public class CarControl : MonoBehaviour {
     public void FixedUpdate()
     {
         //float motor = maxMotorTorque;
+        //float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
         float motor = 0;
-        float steering = maxSteeringAngle * Input.GetAxis("Horizontal");
+        float steering = 0;
 
-        //Debug.Log("correcting: " + correcting);
-        //Debug.Log("starting_up: " + starting_up);
-        
-        //Debug.Log("stopped_count" + stopped_count);
-        //Debug.Log("rb velocity z" + rb.velocity.z + " rb pt velocity z" + rb.GetPointVelocity(new Vector3(0, 0, 0)).z);
-        //Debug.Log("rb pt velocity z" + rb.GetPointVelocity(new Vector3(0, 0, 0)).z);
+        if (DEBUG)
+        {
+            Debug.Log("correcting: " + correcting);
+            Debug.Log("starting_up: " + starting_up);
+            //Debug.Log("stopped_count" + stopped_count);
+            //Debug.Log("rb velocity z" + rb.velocity.z + " rb pt velocity z" + rb.GetPointVelocity(new Vector3(0, 0, 0)).z);
+            //Debug.Log("rb pt velocity z" + rb.GetPointVelocity(new Vector3(0, 0, 0)).z);
+        }
 
         if (!correcting)
         {
+            // apply forward motion to axles
             foreach (AxleInfo axleInfo in axleInfos)
             {
                 if (axleInfo.steering)
@@ -113,37 +125,22 @@ public class CarControl : MonoBehaviour {
                 ApplyLocalPositionToVisuals(axleInfo.rightWheel);
             }
 
-            if (Mathf.Abs(rb.velocity.z) < velocity_cutoff && starting_up == false)
+            // trigger the stop count
+            if (Mathf.Abs(rb.velocity.z) < velocity_cutoff && (!starting_up || Time.time > starting_up_time))
             {
                 stopped_count++;
 
-                if (stopped_count > stopped_limit)
+                // trigger the correction
+                if (stopped_count > stopped_limit)   
                 {
                     stopped_count = 0;
-
-                    /*
-                    if (Mathf.Abs(transform.eulerAngles.z) > 160f)
-                    {
-                        flip_correction = -(transform.eulerAngles.z);
-                    }
-                    */
                     
-                    //transform.eulerAngles = new Vector3(transform.eulerAngles.x, transform.eulerAngles.y + 180.0f, transform.eulerAngles.z + flip_correction); stopped_count = 0;
-
-                    //rb.AddForce(transform.forward * -500 * Time.deltaTime);
-                    //rb.AddRelativeForce(transform.up * 50000);
-                    
-
-
                     correcting_time = Time.time + 5f;
                     correcting = true;
 
                     //Debug.Break();
 
-                    rb.AddRelativeForce(transform.forward * -15000, ForceMode.Impulse);
-                    rb.AddForce(transform.up * 20000, ForceMode.Impulse);
-                    rb.AddTorque(transform.up * 5000, ForceMode.Impulse);
-                    
+                    // flip correction 
                     if (Mathf.Abs(transform.eulerAngles.x) > 160f)
                     {
                         flip_correction_x = -(transform.eulerAngles.x);
@@ -151,12 +148,17 @@ public class CarControl : MonoBehaviour {
 
                     if (Mathf.Abs(transform.eulerAngles.z) > 160f)
                     {
-                        flip_correction_x = -(transform.eulerAngles.z);
+                        flip_correction_z = -(transform.eulerAngles.z);
                     }
 
+                    //cube.transform.Rotate(Vector3.up, 100.0f * Time.deltaTime, Space.World);
 
                     transform.eulerAngles = new Vector3(transform.eulerAngles.x + flip_correction_x, transform.eulerAngles.y + 180.0f, transform.eulerAngles.z + flip_correction_z); stopped_count = 0;
-
+                    
+                    rb.AddRelativeForce(transform.forward * -15000, ForceMode.Impulse);
+                    rb.AddForce(transform.up * 20000, ForceMode.Impulse);
+                    rb.AddTorque(transform.up * 5000, ForceMode.Impulse);
+                    
                 }
             }
             else
@@ -170,7 +172,7 @@ public class CarControl : MonoBehaviour {
                 rb.AddForce(transform.forward * 10000);
             }
 
-            /* BAD HACK */
+            /* BAD HACK to kill stuff that falls off/through the world */
             if (transform.position.y < -15)
             {
                 //transform.position = new Vector3(transform.position.x, 10, transform.position.z);
@@ -185,6 +187,7 @@ public class CarControl : MonoBehaviour {
             {
                 correcting = false;
                 starting_up = true;
+                starting_up_time = Time.time + 5f;
             }
                 
         //rb.AddForce(transform.forward * -1);

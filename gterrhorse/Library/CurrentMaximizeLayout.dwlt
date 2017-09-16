@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 711, y: 471}
   m_MaxSize: {x: 18006, y: 14021}
   vertical: 0
-  controlID: 1793
+  controlID: 118
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -121,10 +121,10 @@ MonoBehaviour:
     y: 0
     width: 1102
     height: 926
-  m_MinSize: {x: 202, y: 421}
-  m_MaxSize: {x: 4002, y: 8021}
+  m_MinSize: {x: 202, y: 442}
+  m_MaxSize: {x: 4002, y: 8042}
   vertical: 1
-  controlID: 1794
+  controlID: 119
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -178,14 +178,14 @@ MonoBehaviour:
     width: 1100
     height: 393
   m_SceneLighting: 1
-  lastFramingTime: 9865.437625284263
+  lastFramingTime: 289.5025453327724
   m_2DMode: 0
   m_isRotationLocked: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 344.72552, y: 17.850159, z: 198.91476}
+    m_Target: {x: 344.9339, y: 22.96833, z: 191.9209}
     speed: 2
-    m_Value: {x: 344.72552, y: 17.850159, z: 198.91476}
+    m_Value: {x: 344.9339, y: 22.96833, z: 191.9209}
   m_RenderMode: 0
   m_ValidateTrueMetals: 0
   m_SceneViewState:
@@ -208,13 +208,13 @@ MonoBehaviour:
       speed: 2
       m_Value: 0
   m_Rotation:
-    m_Target: {x: 0.4358063, y: 0.4789863, z: -0.29757136, w: 0.70149577}
+    m_Target: {x: 0.44630802, y: 0.3471647, z: -0.19323346, w: 0.80183965}
     speed: 2
-    m_Value: {x: 0.4358063, y: 0.47898626, z: -0.29757136, w: 0.70149577}
+    m_Value: {x: 0.44630796, y: 0.34716466, z: -0.19323343, w: 0.80183953}
   m_Size:
-    m_Target: 377.25772
+    m_Target: 104.47985
     speed: 2
-    m_Value: 377.25772
+    m_Value: 104.47985
   m_Ortho:
     m_Target: 0
     speed: 2
@@ -299,7 +299,7 @@ MonoBehaviour:
   m_MinSize: {x: 234, y: 471}
   m_MaxSize: {x: 10004, y: 14021}
   vertical: 1
-  controlID: 1706
+  controlID: 83
 --- !u!114 &9
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -358,18 +358,18 @@ MonoBehaviour:
     m_ExpandedIDs: 56fbffff18fcffff00000000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
-      m_Name: 
-      m_OriginalName: 
+      m_Name: editSkyCar
+      m_OriginalName: editSkyCar
       m_EditFieldRect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 0
         height: 0
-      m_UserData: 0
+      m_UserData: -1194
       m_IsWaitingForDelay: 0
       m_IsRenaming: 0
-      m_OriginalEventType: 11
+      m_OriginalEventType: 0
       m_IsRenamingFilename: 0
       m_ClientGUIView: {fileID: 9}
     m_SearchString: 
@@ -558,8 +558,9 @@ MonoBehaviour:
   m_ActualView: {fileID: 14}
   m_Panes:
   - {fileID: 14}
+  - {fileID: 15}
   m_Selected: 0
-  m_LastSelected: 0
+  m_LastSelected: 1
 --- !u!114 &14
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -575,7 +576,7 @@ MonoBehaviour:
   m_MinSize: {x: 275, y: 50}
   m_MaxSize: {x: 4000, y: 4000}
   m_TitleContent:
-    m_Text: Inspector
+    m_Text: Debug
     m_Image: {fileID: -6905738622615590433, guid: 0000000000000000d000000000000000,
       type: 0}
     m_Tooltip: 
@@ -587,9 +588,35 @@ MonoBehaviour:
     width: 471
     height: 905
   m_ScrollPosition: {x: 0, y: 0}
-  m_InspectorMode: 0
+  m_InspectorMode: 1
   m_PreviewResizer:
     m_CachedPref: 371
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
+--- !u!114 &15
+MonoBehaviour:
+  m_ObjectHideFlags: 52
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 1
+  m_Script: {fileID: 12141, guid: 0000000000000000e000000000000000, type: 0}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AutoRepaintOnSceneChange: 0
+  m_MinSize: {x: 300, y: 360}
+  m_MaxSize: {x: 4000, y: 4000}
+  m_TitleContent:
+    m_Text: Navigation
+    m_Image: {fileID: 7874161543223113035, guid: 0000000000000000d000000000000000,
+      type: 0}
+    m_Tooltip: 
+  m_DepthBufferBits: 0
+  m_Pos:
+    serializedVersion: 2
+    x: 1449
+    y: 103
+    width: 471
+    height: 905
