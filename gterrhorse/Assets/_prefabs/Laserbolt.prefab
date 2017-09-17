@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cd94c6cfa535cbc4b8ac80fb04497663, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laser_speed: 150
+  laser_speed: 300
   Explosion_fx: {fileID: 1809326248218146, guid: 34c6aec8f5e2c30479b0f80a8eb4bb9c,
     type: 2}
   scoreValue: 202
