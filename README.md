@@ -1,6 +1,7 @@
 # unity_games
 
-Some Unity projects I worked on.  gterrainhorse is the source for VR Horse, an incomplete VR arcade game about horses. spaceshootertutes is an implementation of a Unity tutorial.
+gterrainhorse is the source for VR Horse, an incomplete VR arcade game about horses.
+
 
 Get last build of VR horse here: https://drive.google.com/file/d/1twJZ0NVBVzlpYavuhKFeoGsDCenysGbP/view?usp=sharing
 
