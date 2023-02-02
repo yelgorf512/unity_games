@@ -7,7 +7,7 @@ Get last build of VR horse here: https://drive.google.com/file/d/1rTZJt73abBrWno
 
 VR HORSE README
 
-If you have a VR headset plugged in that works with Unity, it will automatically launch the game in VR mode. Otherwise it will launch as 2D. 
+If you have an Oculus VR headset plugged in, it will automatically launch the game in VR mode. Otherwise it will launch as 2D. 
 
 Controls are:
 
